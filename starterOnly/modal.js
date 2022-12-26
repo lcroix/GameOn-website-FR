@@ -13,7 +13,7 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const firstInput = document.querySelector("#first");
 const btnclose = document.querySelectorAll(".close");
-const form = document.querySelectorAll(".form");
+const form = document.getElementById("form");
 const submitBtn = document.querySelector(".btn-submit");
 const checkboxInput = document.querySelector("#checkbox1");
 
@@ -118,23 +118,28 @@ function quantityValid() {
   }
 }
 
-formData[5].addEventListener("input", locationValid);
+formData[5].addEventListener("input", City);
 
-const citiesLoc = document.querySelectorAll('[name="location"]:checked');
-function locationValid() {
-  if (citiesLoc.length < 1) {
-    let locationError = document.getElementById("location-message");
-    locationError.innerHTML = messagesErrors.locationMsg;
-}
-else{
-  document.getElementById("location-message").innerHTML = "";
-  return true;
-}
+const radioButtons = document.querySelectorAll(".checkbox-input[type=radio]");
+function City() {
+  for (i=0; i< radioButtons.length; i++){
+
+    if(radioButtons[i].checked === true) {
+      console.log(radioButtons[i].defaultValue);   
+      return true;
+    }
+  }
+  console.log("pas check");
+  return false
 }
 
-formData[6].addEventListener("input", checkboxValid);
-function checkboxValid(){
-  console.log(form.checkboxMsg.checked);
+checkboxInput.addEventListener("click",(e)=>{ checkboxValid(e)});
+function checkboxValid(e){
+  if (e.target.checked === true) {
+    console.log(e.target.checked );
+    return true;
+  }
+  return false
   }
 
 
@@ -142,21 +147,26 @@ submitBtn.addEventListener("click", validate);
 
 function validate(e) {
   e.preventDefault();
+  const checkbox = document.querySelector("#checkbox1");
+  console.log(checkbox.checked);
   if (
     firstnameValid() == true &&  
     lastnameValid() == true &&
     emailValid() == true &&
     birthdateValid() == true &&
-    tournamentsValid() == true &&
-    locationValid() == true &&
-    checkboxValid() == true
+    quantityValid() == true &&
+    City() == true 
+    && checkbox.checked == true
   ) {
+    alert("Merci ! Votre réservation a été reçue.")
     confirmation();
+  } else {
+        let ckeckboxError = document.getElementById("checkbox-message");
+        ckeckboxError.innerHTML = messagesErrors.checkboxMsg;
   }
-  // sinon return false et affiche les messages d'erreurs
 
 }
 function confirmation() {
-  document.querySelector(".modal-body").style.display = "none";
-  document.querySelector(".confirmation").style.display = "block";
+  modalbg.style.display = "none";
+  form.reset();
 }

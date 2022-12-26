@@ -58,6 +58,7 @@
           <div class="modal-body">
             <form
               name="reserve"
+              id="form"
               action="index.html"
               method="get"
               onsubmit="return validate();"
@@ -196,6 +197,7 @@
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
+                <div id="checkbox-message" class="message"></div>
                 <br>
                 <input class="checkbox-input" type="checkbox" id="checkbox2" />
                 <label class="checkbox2-label" for="checkbox2">
@@ -204,7 +206,6 @@
                 </label>
                 <br>
               </div>
-              <div id="checkbox-message" class="message"></div>
               <br>
               <input
                 class="btn-submit"
