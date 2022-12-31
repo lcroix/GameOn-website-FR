@@ -11,7 +11,11 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-const firstInput = document.querySelector("#first");
+const firstInput = document.querySelector("#firstname");
+const lastInput = document.querySelector("#lastname");
+const emailInput = document.querySelector("#email");
+const birthdateInput = document.querySelector("#birthdate");
+const quantityInput = document.querySelector("#quantity");
 const btnclose = document.querySelectorAll(".close");
 const form = document.getElementById("form");
 const submitBtn = document.querySelector(".btn-submit");
@@ -33,6 +37,7 @@ const messagesErrors = {
   locationMsg: "Veuillez séléctionner une ville",
   checkboxMsg: "Veuillez cocher accepter les conditions d'utilisation",
 };
+
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -56,13 +61,16 @@ function firstnameValid() {
   if (firstname.value.trim() == "" || firstname.value.length < 3) {
     let firstnameError = document.getElementById("firstname-message");
     firstnameError.innerHTML = messagesErrors.firstNameMsg;
+    firstInput.style.border='2px solid red';
     return false;
   } else if (charRegex.test(firstname.value) == false) {
     let firstnameError = document.getElementById("firstname-message");
     firstnameError.innerHTML = messagesErrors.firstNameMsg;
+    firstInput.style.border='2px solid red';
     return false;
   } else {
     document.getElementById("firstname-message").innerHTML = "";
+    firstInput.style.border='none';
     return true;
   }
 }
@@ -72,13 +80,16 @@ function lastnameValid() {
   if (lastname.value.trim() == "" || lastname.value.length < 3) {
     let lastnameError = document.getElementById("lastname-message");
     lastnameError.innerHTML = messagesErrors.lastNameMsg;
+    lastInput.style.border='2px solid red';
     return false;
   } else if (charRegex.test(lastname.value) == false) {
     let lastnameError = document.getElementById("lastname-message");
     lastnameError.innerHTML = messagesErrors.lastNameMsg;
+    lastInput.style.border='2px solid red';
     return false;
   } else {
     document.getElementById("lastname-message").innerHTML = "";
+    lastInput.style.border='none';
     return true;
   }
 }
@@ -88,9 +99,11 @@ function emailValid() {
   if (emailRegex.test(email.value) == false) {
     let emailError = document.getElementById("email-message");
     emailError.innerHTML = messagesErrors.emailMsg;
+    emailInput.style.border='2px solid red';
     return false;
   } else {
     document.getElementById("email-message").innerHTML = "";
+    emailInput.style.border='none';
     return true;
   }
 }
@@ -99,10 +112,12 @@ function birthdateValid() {
   if (datebirthRegex.test(birthdate.value) == false) {
     let birthdateError = document.getElementById("birthdate-message");
     birthdateError.innerHTML = messagesErrors.birthdateMsg;
+    birthdateInput.style.border='2px solid red';
 
     return false;
   } else {
     document.getElementById("birthdate-message").innerHTML = "";
+    birthdateInput.style.border='none';
     return true;
   }
 }
@@ -111,9 +126,11 @@ function quantityValid() {
   if (quantity.value.trim() == "" || quantity.value.length < 1) {
     let quantityError = document.getElementById("quantity-message");
     quantityError.innerHTML = messagesErrors.tounamentsMsg;
+    quantityInput.style.border='2px solid red';
     return false;
   } else {
     document.getElementById("quantity-message").innerHTML = "";
+    quantityInput.style.border='none';
     return true;
   }
 }
@@ -130,6 +147,8 @@ function City() {
     }
   }
   console.log("pas check");
+  let cityboxError = document.getElementById("location-message");
+  cityboxError.innerHTML = messagesErrors.locationMsg;
   return false
 }
 
@@ -161,8 +180,11 @@ function validate(e) {
     alert("Merci ! Votre réservation a été reçue.")
     confirmation();
   } else {
-        let ckeckboxError = document.getElementById("checkbox-message");
-        ckeckboxError.innerHTML = messagesErrors.checkboxMsg;
+    if(checkbox.checked == false){
+      let ckeckboxError = document.getElementById("checkbox-message");
+      ckeckboxError.innerHTML = messagesErrors.checkboxMsg;
+    }
+        
   }
 
 }
